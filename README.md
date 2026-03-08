@@ -74,3 +74,71 @@ unit-test/
 <img width="1131" height="652" alt="image" src="https://github.com/user-attachments/assets/b6af7005-be2c-489a-bab3-cc2254cf26e0" />
 
 
+## Tuần 4 – Kiểm thử hiệu năng với JMeter
+
+**Mục tiêu**:  
+- Hiểu và thực hành kiểm thử hiệu năng (performance/load testing) bằng JMeter.  
+- Thiết kế 3 kịch bản kiểm thử với tham số khác nhau (số lượng người dùng, ramp-up, hành vi).  
+- Phân tích kết quả (Response Time, Throughput, Error Rate).
+
+**Website kiểm thử**:  
+https://blazedemo.com  
+
+
+**Thiết lập chung**:
+- HTTP Request Defaults: Protocol https, Server Name blazedemo.com  
+- HTTP Cookie Manager (nếu cần xử lý session, nhưng site này không yêu cầu login).  
+- Listeners: Summary Report riêng cho từng Thread Group (để kết quả tách biệt, dễ phân tích).  
+- Chạy từng Thread Group riêng để tránh lẫn kết quả.
+
+**3 kịch bản kiểm thử**:
+
+1. **Kịch bản 1: Baseline (cơ bản – kiểm tra tải nhẹ)**  
+   - Thread Group: Baseline - 10 users  
+   - Số lượng người dùng: 10  
+   - Ramp-up period: 10 giây  
+   - Loop Count: 5 lần  
+   - Hành vi: Chỉ GET trang chủ (`/`) – mô phỏng người dùng truy cập ban đầu.  
+
+   **Kết quả chính** (từ Summary Report):  
+   - Samples: [số request thực tế]  
+   - Average Response Time: [xx] ms  
+   - Throughput: [yy] requests/second  
+   - Error %: 0%  
+   - Min/Max RT: [min] / [max] ms  
+
+   <img width="1920" height="999" alt="Capture" src="https://github.com/user-attachments/assets/ba12d7c2-f70b-4e05-8a9b-d9129a5d399a" />
+
+
+2. **Kịch bản 2: Load nặng (kiểm tra tải đột biến)**  
+   - Thread Group: Load - 50 users  
+   - Số lượng người dùng: 50  
+   - Ramp-up period: 30 giây  
+   - Loop Count: 3 lần  
+   - Hành vi: GET trang chủ (`/`) + POST tìm chuyến bay (`/reserve.php`) với tham số fromPort=Paris & toPort=Buenos Aires.  
+
+   **Kết quả chính**:  
+   - Samples: [số request thực tế]  
+   - Average Response Time: [zz] ms (tăng so với baseline do tải cao hơn)  
+   - Throughput: [ww] requests/second  
+   - Error %: 0%  
+   - 90th Percentile: [uu] ms  
+
+   <img width="1920" height="979" alt="Capture1" src="https://github.com/user-attachments/assets/84376c27-1f2f-4356-b525-817dff9367d7" />
+
+
+3. **Kịch bản 3: Custom (tùy chỉnh – mô phỏng hành vi hỗn hợp)**  
+   - Thread Group: Custom - 20 users  
+   - Số lượng người dùng: 20  
+   - Ramp-up period: 20 giây  
+   - Scheduler Duration: 60 giây  
+   - Hành vi: GET trang chủ + POST tìm chuyến bay + GET trang kết quả (nếu có param cụ thể, ví dụ /purchase.php).  
+
+   **Kết quả chính**:  
+   - Samples: [số request thực tế]  
+   - Average Response Time: [vv] ms  
+   - Throughput: [tt] requests/second  
+   - Error %: 0%  
+   - 90th Percentile: [ss] ms  
+
+   <img width="1920" height="1003" alt="Capture2" src="https://github.com/user-attachments/assets/848f0be1-616d-4621-a10c-a09c6ae8f85d" />
