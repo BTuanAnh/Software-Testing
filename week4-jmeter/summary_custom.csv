@@ -1,0 +1,5 @@
+Label,# Samples,Average,Min,Max,Std. Dev.,Error %,Throughput,Received KB/sec,Sent KB/sec,Avg. Bytes
+GET Home Page,20,385,346,465,27.72,0.000%,1.03252,4.80,0.12,4758.8
+POST Find Flights,20,322,279,404,30.03,0.000%,1.03568,7.33,0.23,7246.8
+GET Purchase Page,20,316,278,373,26.77,0.000%,1.03466,6.79,0.13,6716.0
+TOTAL,60,341,278,465,41.93,0.000%,2.99790,18.27,0.46,6240.5
