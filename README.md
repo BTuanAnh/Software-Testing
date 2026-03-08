@@ -44,3 +44,33 @@ unit-test/
 - feat: implement countExcellentStudents and calculateValidAverage #1
 - test: add comprehensive unit tests for both methods #3
 - docs: update README with week 2 report #4
+
+
+## Tuần 3 – Kiểm thử End-to-End với Cypress
+
+**Mục tiêu**: Thực hành kiểm thử tự động E2E trên trang mẫu https://www.saucedemo.com (Swag Labs).
+
+**Cấu trúc dự án**:
+- `week3-cypress/`
+  - `cypress/e2e/login.cy.js` → Kiểm tra đăng nhập thành công & thất bại
+  - `cypress/e2e/cart.cy.js` → Thêm sản phẩm, sort giá, xóa sản phẩm, quy trình checkout
+
+**Các kịch bản đã thực hiện**:
+1. Đăng nhập thành công (standard_user / secret_sauce) → chuyển đến inventory.html
+2. Đăng nhập thất bại → hiển thị thông báo lỗi đúng
+3. Thêm sản phẩm vào giỏ hàng → badge hiển thị số 1
+4. Sort sản phẩm theo giá thấp đến cao → sản phẩm đầu tiên giá $7.99
+5. Xóa sản phẩm khỏi giỏ hàng → badge biến mất, giỏ rỗng
+6. Quy trình checkout cơ bản → điền info → chuyển đến checkout-step-two.html
+
+**Cách chạy test**:
+1. `cd week3-cypress`
+2. `npm install` (nếu clone mới)
+3. `npx cypress open` → chọn E2E → chạy file test trong GUI Chrome
+
+**Kết quả**: Tất cả test case passed (xanh 100%).  
+<img width="1097" height="923" alt="image" src="https://github.com/user-attachments/assets/d8dc26b4-7961-4ae2-9932-70c971b25ba2" />
+<img width="1100" height="840" alt="image" src="https://github.com/user-attachments/assets/b43e922b-e1e1-4067-83f5-ba425833fbe3" />
+<img width="1131" height="652" alt="image" src="https://github.com/user-attachments/assets/b6af7005-be2c-489a-bab3-cc2254cf26e0" />
+
+
